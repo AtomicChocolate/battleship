@@ -6,13 +6,16 @@ class Ship {
 		this.position = position;
 		this.yAxis = yAxis;
 		this.length = length;
-		this.hits = [];
+		this.hits = Array(length).fill(false);
 	}
 	hit(index) {
-		this.hits.push(index);
+		const alreadyHit = this.hits[index];
+		if (alreadyHit !== false) return; //Do not add a hit outside of the ship length, or if it's already hit
+
+		this.hits[index] = true;
 	}
 	isSunk() {
-		return this.hits >= this.length;
+		return this.hits.every((v) => v === true);
 	}
 
 	static newShipFromType(name, position, yAxis) {
