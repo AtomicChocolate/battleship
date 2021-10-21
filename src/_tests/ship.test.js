@@ -2,18 +2,18 @@ import Ship from "../factory/ship";
 
 describe("Creating a ship", () => {
 	it("generates a ship with the given type name", () => {
-		expect(Ship.newShipFromType("carrier", [3, 0], true).length).toBe(5);
+		expect(Ship.newShipFromType("carrier", 3, true).length).toBe(5);
 	});
 	it("generates a ship with custom values", () => {
-		const carrier = Ship.newShipFromType("carrier", [3, 0], true);
-		expect(new Ship("carrier", [3, 0], true, 5)).toEqual(carrier);
+		const carrier = Ship.newShipFromType("carrier", 3, true);
+		expect(new Ship("carrier", 3, true, 5)).toEqual(carrier);
 	});
 });
 
 describe("Ship functions", () => {
 	let carrier;
 	beforeEach(() => {
-		carrier = Ship.newShipFromType("carrier", [3, 0], true);
+		carrier = Ship.newShipFromType("carrier", 3, true);
 	});
 	it("can hit the ship", () => {
 		carrier.hit(0);
