@@ -7,7 +7,7 @@ describe("Creating a gameboard", () => {
 	});
 });
 
-describe("Gameboard functions", () => {
+describe("Getting coordinates", () => {
 	let gameboard;
 	let carrier;
 	beforeEach(() => {
@@ -56,6 +56,41 @@ describe("Placing a ship", () => {
 		const submarine = Ship.newShipFromType("submarine", 4, false);
 		gameboard.addShip(submarine);
 		gameboard.addShip(carrier);
-		expect(gameboard.board[99].hasShip).toBe(false);
+		expect(gameboard.board[9].hasShip).toBe(false);
+	});
+});
+
+describe("Attacking", () => {
+	let gameboard;
+	let carrier;
+	beforeEach(() => {
+		gameboard = new Gameboard();
+		carrier = Ship.newShipFromType("carrier", 3, false);
+	});
+	it("can attack a ship at a specified coordinate", () => {
+		gameboard.addShip(carrier);
+		expect(gameboard.recieveAttack(3)).toBe(true);
+	});
+	it("doesn't attack invalid locations", () => {
+		gameboard.addShip(carrier);
+		expect(gameboard.recieveAttack(1)).toBe(false);
+	});
+});
+
+describe("All ships sunk check", () => {
+	let gameboard;
+	let patrolBoat;
+	beforeEach(() => {
+		gameboard = new Gameboard();
+		patrolBoat = Ship.newShipFromType("patrol boat", 3, false);
+		gameboard.addShip(patrolBoat);
+	});
+	it("knows when all the ships on the gameboard are fully sunk", () => {
+		gameboard.recieveAttack(3);
+		gameboard.recieveAttack(4);
+		expect(gameboard.allShipsSunk()).toBe(true);
+	});
+	it("knows when not all the ships on the gameboard are fully sunk", () => {
+		expect(gameboard.allShipsSunk()).toBe(false);
 	});
 });

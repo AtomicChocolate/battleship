@@ -39,6 +39,23 @@ class Gameboard {
 		}
 		return true;
 	}
+
+	recieveAttack(position) {
+		if (this.board[position] !== undefined && this.board[position].hasShip) {
+			this.board[position].isShot = true;
+			return true;
+		}
+		return false;
+	}
+
+	allShipsSunk() {
+		for (let i = 0; i < 100; i++) {
+			if (this.board[i].hasShip === true && this.board[i].isShot === false) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
 
 export default Gameboard;
