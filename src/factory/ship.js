@@ -9,6 +9,7 @@ class Ship {
 		this.hits = Array(length).fill(false);
 	}
 	hit(index) {
+		//Might wanna remove?
 		const alreadyHit = this.hits[index];
 		if (alreadyHit !== false) return; //Do not add a hit outside of the ship length, or if it's already hit
 
